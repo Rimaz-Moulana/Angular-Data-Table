@@ -1,0 +1,31 @@
+<div class="container">
+  <input type="text" [(ngModel)]="searchText" (input)="onSearch()" placeholder="Search...">
+  <table>
+    <thead>
+      <tr>
+        <th (click)="onSort('id')">ID</th>
+        <th (click)="onSort('email')">Email</th>
+        <th>Name</th>
+        <th>Body</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let comment of getPaginatedData()">
+        <td>{{ comment.id }}</td>
+        <td>{{ comment.email }}</td>
+        <td>{{ comment.name }}</td>
+        <td>{{ comment.body }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    <button (click)="onPageSizeChange(10)">10</button>
+    <button (click)="onPageSizeChange(15)">15</button>
+    <button (click)="onPageSizeChange(20)">20</button>
+  </div>
+  <div class="pagination">
+    <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1">Prev</button>
+    <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage * pageSize >= comments.length">Next</button>
+  </div>
+  <div *ngIf="isLoading" class="loading">Loading...</div>
+</div>
